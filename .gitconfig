@@ -1,0 +1,72 @@
+[user]
+	email = brianisme@gmail.com
+	name = brianisme
+[color]
+	ui = auto
+[core]
+    #editor = emacsclient -t -s main
+	editor = vim
+	filemode = false
+	autocrlf = input
+[alias]
+    a = add --ignore-errors
+	ai = add -i                                          #interactive add
+    ap = add -p                                          #add by patch
+    ar = add -u                                          #add removed files
+	bl = blame 
+	b = branch
+	br = branch -a
+	bra = branch -a
+	brd = branch -d                                      #delete a branch nicely
+	brdd = branch -D                                     #delete a branch forcefully
+	brll = branch -l                                     #list local branches
+	brlr = branch -r                                     #list remote branches
+    brr = branch -m                                      #rename branch
+	c = commit -v
+	ci = commit -vm                                      #commit with message
+	cia = commit -vam                                    #add and commit with message
+	cim = commit -v --amend                              #amend last commit
+	cl = config -l                                       
+	co = checkout                                       
+	cob = checkout -b                                    #create new branch and checkout
+	cop = checkout -p                                    #get rid of local changes by patch
+	cp = cherry-pick
+	d = diff
+	dc = diff --cached                                   #diff of changes in staging area
+	fe = fetch -p -v --all                                  #fetch all remote changes (updates local remote branches)
+	ger = push gerrit HEAD:refs/for/master               #push changes for code review (need to add remote first though)
+	l = log --numstat --format=fuller                    #show committer info and files changed
+	lf = log --format=fuller --follow                    #<path to file> show log to one file
+	lfp = log -p --format=fuller --follow                #<path to file> show changes to one file by patch
+	lp = log -p                                          #show changes by patch
+
+    #show log with graph similar to 'lg = log --oneline --graph' but nicer
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+	lpr = log -p remotes/origin/master..                 #show local changes not in remote by patch
+    lr = log --format=fuller remotes/origin/master..     #show log of local changes not in remote
+	lup = log -p ..remotes/origin/master                 #show changes in remote that are not local by patch
+    lu = log --format=fuller ..remotes/origin/master     #show changes in remote that are not local
+
+    mf = merge --ff-only                                 #merge by fast-forward only
+    mg = merge --no-ff                                   #merge no fast-forward allowed
+
+    #Give detailed status of system in one go
+    q = !echo && echo '-------------- Fetching All Remote Changes --------' && git --no-pager fe && echo && echo '-------------- Remote Changes ---------------------' && git --no-pager lu && echo && echo '-------------- Local  Changes ---------------------' && git --no-pager lr && echo && echo '-------------- Current Status ---------------------' && git st
+    #Give detailed status of system in by patch
+    qp = !echo && echo '-------------- Fetching All Remote Changes --------' && git fe && echo && echo '-------------- Remote Changes ---------------------' && git lup && echo && echo '-------------- Local  Changes ---------------------' && git lpr && echo && echo '-------------- Current Status ---------------------' && git st 
+rem = !echo && echo '-------------- Fetching All Remote Changes --------' && git --no-pager fe && echo && echo '-------------- Rebasing origin/master --------' && git rebase origin/master && echo && echo '-------------- Current Status ---------------------' && git st
+	re = rebase -i                                       #interactive rebase
+	rea = rebase --abort                                 #abort the rebase
+	rec = rebase --continue                              #continue the rebase
+	rp = reset -p                                        #remove changes from staging area by patch
+	st = status -bsu                                     #short and sweet status
+    sd = stash drop                                      #drops the last stash
+    sl = stash list                                      #list stashes
+    sp = stash show -p                                   #show stashed changes by patch
+    spp = stash pop                                      #pop the last stash
+	up = pull -v --rebase -p                                #pull and rebase remote changes
+	cleanup-branches = !git branch | grep -v \"\\*\" | awk \"{ print $1 }\" | xargs git branch -d
+[branch]
+	autosetuprebase = remote
+
