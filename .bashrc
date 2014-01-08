@@ -23,3 +23,6 @@ function dateOut() {
 NAME=`cat /etc/chef/client.rb | grep 'node_name' | sed 's/.*"\(.*\)"/\1/g'`;
 
 PS1="[\$(dateOut)]$NODE_NAME_COLOR$NAME$YELLOW\$(ref)\$(sha)\[\e[0m\][\w]\$ "
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
